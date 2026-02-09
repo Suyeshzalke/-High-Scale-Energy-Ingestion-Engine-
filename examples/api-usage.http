@@ -1,0 +1,54 @@
+### Health Check (if you add one)
+# GET http://localhost:3000/v1/health
+
+### Ingest Meter Telemetry
+POST http://localhost:3000/v1/ingestion/meter
+Content-Type: application/json
+
+{
+  "meterId": "METER-001",
+  "kwhConsumedAc": 15.5,
+  "voltage": 240.0,
+  "timestamp": "2026-02-09T10:30:00Z"
+}
+
+### Ingest Vehicle Telemetry
+POST http://localhost:3000/v1/ingestion/vehicle
+Content-Type: application/json
+
+{
+  "vehicleId": "EV-001",
+  "soc": 85.5,
+  "kwhDeliveredDc": 12.3,
+  "batteryTemp": 25.5,
+  "timestamp": "2026-02-09T10:30:00Z"
+}
+
+### Polymorphic Ingestion (Meter)
+POST http://localhost:3000/v1/ingestion/telemetry
+Content-Type: application/json
+
+{
+  "meterId": "METER-002",
+  "kwhConsumedAc": 20.0,
+  "voltage": 240.0,
+  "timestamp": "2026-02-09T10:31:00Z"
+}
+
+### Polymorphic Ingestion (Vehicle)
+POST http://localhost:3000/v1/ingestion/telemetry
+Content-Type: application/json
+
+{
+  "vehicleId": "EV-002",
+  "soc": 90.0,
+  "kwhDeliveredDc": 18.5,
+  "batteryTemp": 26.0,
+  "timestamp": "2026-02-09T10:31:00Z"
+}
+
+### Get Vehicle Performance Analytics
+GET http://localhost:3000/v1/analytics/performance/EV-001
+
+### Get Vehicle Performance Analytics (Non-existent)
+GET http://localhost:3000/v1/analytics/performance/EV-999
